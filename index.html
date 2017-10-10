@@ -20,11 +20,14 @@
         function checkForDuplicates() {
             sentencesYouFuckedup = []
             Essay = document.getElementById("beforeEssay").value
+            Essay = Essay.replace(/([\t\n])\w+/g,"");
+//            console.log(Essay)
             var MarkedUpEssay = Essay.split(/(\.|\?|!)/g);
+            console.log(MarkedUpEssay)
             for (var j = 0; j < MarkedUpEssay.length; j += 2) {
-                console.log(MarkedUpEssay[j])
+//                console.log(MarkedUpEssay[j])
                 Individualwords = MarkedUpEssay[j].split(" ").sort()
-                console.log(Individualwords)
+//                console.log(Individualwords)
                 for (var k = 0; k < Individualwords.length; k++) {
                     if (Individualwords[k + 1] == Individualwords[k]) {
                         sentencesYouFuckedup.push(MarkedUpEssay[j]);
