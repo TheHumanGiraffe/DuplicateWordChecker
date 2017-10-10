@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+    <head>
+      <title>Do any of my sentences have the same word twice?</title>
+    </head>
+    <body>
+       
+            <div id="main">
+                <form action="javascript:checkForDuplicates();">
+                    Your essay:<br> <textarea name="FormFeedback" rows="20" cols="100" id="beforeEssay">Paste your essay here.</textarea>
+                    <br><input type="submit" value="Send Feedback"><input type="reset" value="Clear Form">
+                </form>
+                
+                <form>
+                    Sentences with duplicate words:<br> <textarea name="FormFeedback" rows="20" cols="100" id="AfterEssay"></textarea>
+                </form>
+            </div>
+    </body>
+    <script>
+        function checkForDuplicates() {
+            sentencesYouFuckedup = []
+            Essay = document.getElementById("beforeEssay").value
+            var MarkedUpEssay = Essay.split(/(\.|\?|!)/g);
+            for (var j = 0; j < MarkedUpEssay.length; j += 2) {
+                console.log(MarkedUpEssay[j])
+                Individualwords = MarkedUpEssay[j].split(" ").sort()
+                console.log(Individualwords)
+                for (var k = 0; k < Individualwords.length; k++) {
+                    if (Individualwords[k + 1] == Individualwords[k]) {
+                        sentencesYouFuckedup.push(MarkedUpEssay[j]);
+                    }
+                }
+                document.getElementById("AfterEssay").innerHTML = sentencesYouFuckedup;
+            }
+        }
+    </script>
+</html>
