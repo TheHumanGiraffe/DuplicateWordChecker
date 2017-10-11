@@ -1,7 +1,9 @@
+
 <!DOCTYPE html>
 <html>
     <head>
       <title>Do any of my sentences have the same word twice?</title>
+      <link  rel="stylesheet" href="CSIS128FinalProject.css">
     </head>
     <body>
        
@@ -18,28 +20,31 @@
     </body>
     <script>
         function checkForDuplicates() {
-//            document.getElementById("AfterEssay").innerhtml = " ";
+            //            document.getElementById("AfterEssay").innerhtml = " ";
             sentencesYouFuckedup = []
             Essay = document.getElementById("beforeEssay").value
-            Essay.replace(/(\n|\t|\r)/g,'');
+            Essay.replace(/(\n|\t|\r)/g, '');
             var MarkedUpEssay = Essay.split(/(\.|\?|!)/g);
-            for (var j=0; j<MarkedUpEssay.length; j+=2){
-                //πconsole.log(MarkedUpEssay[j])
-                Individualwords = MarkedUpEssay[j].split(" ").sort()
-                //console.log(Individualwords)
+            for (var j = 0; j < MarkedUpEssay.length; j += 2) {
+                SortCapArray = []
+                Individualwords = MarkedUpEssay[j].split(" ")
+                for (var j2 = 0; j2 < Individualwords.length; j2++) {
+                    SortCapArray.push(Individualwords[j2].toUpperCase())
+                }
+                SortCapArray = SortCapArray.sort()
                 caught = 0;
-                for (var k=0; k<Individualwords.length; k++){
-                    if (caught == 0){
-                        if (Individualwords[k+1] == Individualwords[k] && Individualwords[k]!= "the" && Individualwords[k]!= "a" 
-                            && Individualwords[k]!= "an"){
-                        sentencesYouFuckedup.push(Individualwords[k]+"\n ----- "+MarkedUpEssay[j]);
-                        caught = 1;
-                        }  
+                for (var k = 0; k < SortCapArray.length; k++) {
+                    if (caught == 0) {
+                        if (SortCapArray[k + 1]) {
+                            if (SortCapArray[k + 1] == SortCapArray[k] && SortCapArray[k] != "THE" && SortCapArray[k] != "A" && SortCapArray[k] != "AN") {
+                                sentencesYouFuckedup.push(SortCapArray[k] + "\n ----- " + MarkedUpEssay[j]);
+                                caught = 1;
+                            }
+                        }
                     }
                 }
             }
-                console.log(sentencesYouFuckedup)
-            for (i=0; i<sentencesYouFuckedup.length; i++){
+            for (i = 0; i < sentencesYouFuckedup.length; i++) {
                 document.getElementById("AfterEssay").innerHTML += sentencesYouFuckedup[i] + "\n\n"
             }
         }
