@@ -2,6 +2,7 @@
 <html>
     <head>
       <title>Do any of my sentences have the same word twice?</title>
+      <link  rel="stylesheet" href="CSIS128FinalProject.css">
     </head>
     <body>
        
@@ -18,22 +19,29 @@
     </body>
     <script>
         function checkForDuplicates() {
+//            document.getElementById("AfterEssay").innerhtml = " ";
             sentencesYouFuckedup = []
             Essay = document.getElementById("beforeEssay").value
-            Essay = Essay.replace(/([\t\n])\w+/g,"");
-//            console.log(Essay)
+            Essay.replace(/(\n|\t|\r)/g,'');
             var MarkedUpEssay = Essay.split(/(\.|\?|!)/g);
-            console.log(MarkedUpEssay)
-            for (var j = 0; j < MarkedUpEssay.length; j += 2) {
-//                console.log(MarkedUpEssay[j])
+            for (var j=0; j<MarkedUpEssay.length; j+=2){
+                //πconsole.log(MarkedUpEssay[j])
                 Individualwords = MarkedUpEssay[j].split(" ").sort()
-//                console.log(Individualwords)
-                for (var k = 0; k < Individualwords.length; k++) {
-                    if (Individualwords[k + 1] == Individualwords[k]) {
-                        sentencesYouFuckedup.push(MarkedUpEssay[j]);
+                //console.log(Individualwords)
+                caught = 0;
+                for (var k=0; k<Individualwords.length; k++){
+                    if (caught == 0){
+                        if (Individualwords[k+1] == Individualwords[k] && Individualwords[k]!= "the" && Individualwords[k]!= "a" 
+                            && Individualwords[k]!= "an"){
+                        sentencesYouFuckedup.push(Individualwords[k]+"\n ----- "+MarkedUpEssay[j]);
+                        caught = 1;
+                        }  
                     }
                 }
-                document.getElementById("AfterEssay").innerHTML = sentencesYouFuckedup;
+            }
+                console.log(sentencesYouFuckedup)
+            for (i=0; i<sentencesYouFuckedup.length; i++){
+                document.getElementById("AfterEssay").innerHTML += sentencesYouFuckedup[i] + "\n\n"
             }
         }
     </script>
